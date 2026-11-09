@@ -1,0 +1,25 @@
+// Opsional: bisa di-paste langsung di dbdiagram.io (mode DBML)
+Table warga { id serial [pk] nik char(16) [unique, not null] nama_lengkap varchar(100) [not null] tempat_lahir varchar(50) tanggal_lahir date jenis_kelamin char(1) alamat text rt varchar(3) rw varchar(3) no_hp varchar(20) created_at timestamp }
+Table akun_warga { id serial [pk] warga_id int [unique, not null] email varchar(100) [unique, not null] password varchar(255) [not null] is_active boolean last_login timestamp created_at timestamp }
+Table perangkat_desa { id serial [pk] nip varchar(20) nama varchar(100) [not null] jabatan varchar(100) [not null] email varchar(100) [unique, not null] password varchar(255) [not null] created_at timestamp }
+Table jenis_surat { id serial [pk] kode varchar(20) [unique, not null] nama varchar(100) [not null] deskripsi text created_at timestamp updated_at timestamp }
+Table persyaratan { id serial [pk] nama varchar(100) [unique, not null] keterangan text }
+Table jenis_surat_persyaratan { jenis_surat_id int [not null] persyaratan_id int [not null] wajib boolean indexes { (jenis_surat_id, persyaratan_id) [pk] } }
+Table pengajuan_surat { id serial [pk] no_pengajuan varchar(30) [unique, not null] warga_id int [not null] jenis_surat_id int [not null] keperluan text status varchar(20) tanggal_pengajuan timestamp }
+Table dokumen_pengajuan { id serial [pk] pengajuan_id int [not null] persyaratan_id int [not null] nama_file varchar(255) path_file varchar(255) uploaded_at timestamp }
+Table verifikasi_pengajuan { id serial [pk] pengajuan_id int [not null] perangkat_desa_id int [not null] hasil varchar(10) catatan text verified_at timestamp }
+Table riwayat_status { id serial [pk] pengajuan_id int [not null] status varchar(20) keterangan text created_at timestamp }
+Table surat_terbit { id serial [pk] pengajuan_id int [unique, not null] nomor_surat varchar(50) [unique, not null] file_surat varchar(255) ditandatangani_oleh int tanggal_terbit date }
+
+Ref: akun_warga.warga_id - warga.id
+Ref: surat_terbit.pengajuan_id - pengajuan_surat.id
+Ref: surat_terbit.ditandatangani_oleh > perangkat_desa.id
+Ref: pengajuan_surat.warga_id > warga.id
+Ref: pengajuan_surat.jenis_surat_id > jenis_surat.id
+Ref: dokumen_pengajuan.pengajuan_id > pengajuan_surat.id
+Ref: dokumen_pengajuan.persyaratan_id > persyaratan.id
+Ref: verifikasi_pengajuan.pengajuan_id > pengajuan_surat.id
+Ref: verifikasi_pengajuan.perangkat_desa_id > perangkat_desa.id
+Ref: riwayat_status.pengajuan_id > pengajuan_surat.id
+Ref: jenis_surat_persyaratan.jenis_surat_id > jenis_surat.id
+Ref: jenis_surat_persyaratan.persyaratan_id > persyaratan.id

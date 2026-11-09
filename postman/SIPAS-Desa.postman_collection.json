@@ -1,0 +1,115 @@
+{
+  "info": {
+    "name": "SIPAS Desa - CRUD Jenis Surat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "POST - Tambah jenis surat",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/jenis-surat",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "jenis-surat"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"kode\": \"SKTM\",\n  \"nama\": \"Surat Keterangan Tidak Mampu\",\n  \"deskripsi\": \"Untuk warga kurang mampu\"\n}"
+        }
+      }
+    },
+    {
+      "name": "GET - Semua jenis surat",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/jenis-surat",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "jenis-surat"
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET - Jenis surat by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/jenis-surat/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "jenis-surat",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PUT - Update jenis surat",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/jenis-surat/4",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "jenis-surat",
+            "4"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"kode\": \"SKTM\",\n  \"nama\": \"Surat Keterangan Tidak Mampu (Update)\",\n  \"deskripsi\": \"Diperbarui\"\n}"
+        }
+      }
+    },
+    {
+      "name": "DELETE - Hapus jenis surat",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/jenis-surat/4",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "jenis-surat",
+            "4"
+          ]
+        }
+      }
+    }
+  ]
+}
